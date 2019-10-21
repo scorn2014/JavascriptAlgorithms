@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h3>
+      请实现一个函数用来找出字符流中第一个只出现一次的字符。例如，当从字符流中只读出前两个字符"go"时，第一个只出现一次的字符是"g"。
+      当从该字符流中读出前六个字符“google"时，第一个只出现一次的字符是"l"。
+      如果当前字符流没有存在出现一次的字符，返回#字符
+    </h3>
+    <script>
+      function firstAppearingOnce(string) {
+        let appearChar = {};
+        let firstChar = "#";
+        for (let index = 0; index < string.length - 1; index++) {
+          const char = string.charAt(index);
+          if (!appearChar[char]) {
+            let count = 0;
+            appearChar[char] = count;
+            firstChar = char;
+          } else {
+            if (char === firstChar) {
+              count = appearChar[count];
+              if (count > 1) {
+                firstChar = "#";
+              }
+            }
+          }
+        }
+        return firstChar;
+      }
+
+      //剑指offer解法:
+      function FirstAppearingOnce(string) {
+        let container = new Array(256).fill(-1); //从未出现过值为-1，出现过1次值为相应字符的索引值，出现过多次值为-2
+        for (let i = 0; i < string.length; i++) {
+          const charCode = string.charCodeAt(i); //字符ASII码做数组索引
+          const char = string.charAt(i)
+          let indexValue = container[charCode];
+          if (indexValue === -1) {
+            indexValue = i;
+          } else if (indexValue >= 0) {
+            indexValue = -2;
+          }
+          container[charCode] = indexValue;
+        }
+
+        let minIndexValue;
+        let minIndex;
+        for (let i = 0; i < container.length; i++) {
+          if (container[i] >= 0) {
+            const indexValue = container[i];
+            if (minIndexValue) {
+              if (indexValue < minIndexValue) {
+                minIndexValue = indexValue;
+                minIndex = i;
+              }
+            }
+            else{
+                minIndexValue = indexValue;
+                minIndex = i;
+            }
+          }
+        }
+
+        return minIndex === 256 ? "#" : String.fromCharCode(minIndex);
+      }
+
+      let string = "google";
+      let char = FirstAppearingOnce(string);
+      console.log(char);
+    </script>
+  </body>
+</html>

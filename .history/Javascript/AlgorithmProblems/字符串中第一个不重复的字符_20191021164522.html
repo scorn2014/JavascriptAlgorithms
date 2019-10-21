@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h3>
+      请实现一个函数用来找出字符流中第一个只出现一次的字符。例如，当从字符流中只读出前两个字符"go"时，第一个只出现一次的字符是"g"。
+      当从该字符流中读出前六个字符“google"时，第一个只出现一次的字符是"l"。
+      如果当前字符流没有存在出现一次的字符，返回#字符
+    </h3>
+    <script>
+      function firstAppearingOnce(string) {
+        let appearChar = {};
+        let firstChar = "#";
+        for (let index = 0; index < string.length - 1; index++) {
+          const char = string.charAt(index);
+          if (!appearChar[char]) {
+            let count = 0;
+            appearChar[char] = count;
+            firstChar = char;
+          } else {
+            if (char === firstChar) {
+              count = appearChar[count];
+              if (count > 1) {
+                firstChar = "#";
+              }
+            }
+          }
+        }
+        return firstChar;
+      }
+
+      //剑指offer解法:
+      function FirstAppearingOnce(string) {
+        let container = new Array(256).fill(0);   //0代表从未出现过，1代表出现过1次，字符相应ASII码值代表出现过多次
+        let indexValue = 0;
+        for (let i = 0; i < string.length; i++) {
+            const charCode = string.charCodeAt(i); //字符ASII码做数组索引
+            let indexValue = container[charCode]
+            if (indexValue === -1) {
+                indexValue = i 
+            }
+            else if (indexValue === 0) {
+                indexValue === -2
+            }
+            container[charCode] = indexValue
+        }
+
+        let minIndex = 0
+        for (let i = 0; i < container.length; i++) {
+            if (container[i] > -1) {
+                minIndex = i
+                break
+            }
+        }
+
+        return minIndex === 256 ? '#' : String.fromCharCode(minIndex);
+
+      }
+
+      let string = 'google'
+      let char = FirstAppearingOnce(string)
+      console.log(char)
+    </script>
+  </body>
+</html>
