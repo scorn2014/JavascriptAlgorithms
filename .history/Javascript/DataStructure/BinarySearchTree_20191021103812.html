@@ -90,7 +90,7 @@
               if (node.left) {
                 return minNode(node.left);
               } else {
-                return node;
+                return node.key;
               }
             }
             return null;
@@ -105,7 +105,7 @@
               if (node.right) {
                 return maxNode(node.right);
               } else {
-                return node;
+                return node.key;
               }
             }
             return null;
@@ -114,28 +114,6 @@
         }
 
         //搜索特定的值
-        search(key){
-          const searchNode = (node,key) => {
-            if (key < node.key) {
-              return searchNode(node.left,key)
-            }
-            else if (key > node.key) {
-              return searchNode(node.right,key)
-            }
-            else{
-              return node
-            }
-          };
-          return searchNode(this.root,key);
-        }
-
-        //删除某个节点
-        remove(key){
-          const removeNode = (node,key) => {
-            
-          };
-          return removeNode(this.root,key);
-        }
       }
 
       const tree = new BinarySearchTree();
@@ -159,8 +137,6 @@
 
       console.log("min: " + tree.min());
       console.log("max: " + tree.max());
-
-      console.log(tree.search(9))
 
     </script>
   </body>

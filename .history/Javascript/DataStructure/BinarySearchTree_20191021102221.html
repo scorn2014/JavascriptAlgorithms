@@ -58,10 +58,11 @@
           };
           preOrderTraverseNode(this.root, callback);
         }
+      }
 
-        //中序遍历
-        inOrderTraverse(callback) {
-          const inOrderTraverseNode = (node, callback) => {
+      //中序遍历
+      inOrderTraverse(callback) {
+        const inOrderTraverseNode = (node, callback) => {
             if (node) {
               inOrderTraverseNode(node.left, callback);
               callback(node.key);
@@ -69,73 +70,6 @@
             }
           };
           inOrderTraverseNode(this.root, callback);
-        }
-
-        //后序遍历
-        postOrderTraverse(callback) {
-          const postOrderTraverseNode = (node, callback) => {
-            if (node) {
-              postOrderTraverseNode(node.left, callback);
-              postOrderTraverseNode(node.right, callback);
-              callback(node.key);
-            }
-          };
-          postOrderTraverseNode(this.root, callback);
-        }
-
-        //搜索最小值
-        min(node) {
-          const minNode = node => {
-            if (node) {
-              if (node.left) {
-                return minNode(node.left);
-              } else {
-                return node;
-              }
-            }
-            return null;
-          };
-          return minNode(node || this.root);
-        }
-
-        //搜索最大值
-        max(node){
-          const maxNode = node => {
-            if (node) {
-              if (node.right) {
-                return maxNode(node.right);
-              } else {
-                return node;
-              }
-            }
-            return null;
-          };
-          return maxNode(node || this.root);
-        }
-
-        //搜索特定的值
-        search(key){
-          const searchNode = (node,key) => {
-            if (key < node.key) {
-              return searchNode(node.left,key)
-            }
-            else if (key > node.key) {
-              return searchNode(node.right,key)
-            }
-            else{
-              return node
-            }
-          };
-          return searchNode(this.root,key);
-        }
-
-        //删除某个节点
-        remove(key){
-          const removeNode = (node,key) => {
-            
-          };
-          return removeNode(this.root,key);
-        }
       }
 
       const tree = new BinarySearchTree();
@@ -153,14 +87,9 @@
       tree.insert(18);
       tree.insert(25);
 
-      tree.postOrderTraverse(value => {
+      tree.preOrderTraverse(value => {
         console.log(value);
       });
-
-      console.log("min: " + tree.min());
-      console.log("max: " + tree.max());
-
-      console.log(tree.search(9))
 
     </script>
   </body>
