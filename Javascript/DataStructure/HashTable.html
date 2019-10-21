@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>HashTable</title>
+  </head>
+  <body>
+    <script>
+      class HashTable {
+        constructor() {
+          this.hashTables = []
+        }
+
+        // 哈希函数
+        static loseloseHashCode(key) {
+            let hash = 0
+            for (const codePoint of key) {
+                hash += codePoint.charCodeAt()
+            }
+            return hash % 37
+        }
+
+        put(key,value){
+            const position = HashTable.loseloseHashCode(key)
+            console.log(`${position} - ${key}`)
+            this.hashTables[position] = value
+        }
+
+        get(key) {
+            return this.hashTables[HashTable.loseloseHashCode(key)]
+        }
+
+        remove(key) {
+            this.hashTables[HashTable.loseloseHashCode(key)] = undefined
+        }
+       
+      }
+
+        const hash = new HashTable()
+        hash.put('Surmon', 'surmon.me@email.com') // 19 - Surmon
+        hash.put('John', 'johnsnow@email.com') // 29 - John
+        hash.put('Tyrion', 'tyrion@email.com') // 16 - Tyrion
+
+        // 测试get方法
+        console.log(hash.get('Surmon')) // surmon.me@email.com
+        console.log(hash.get('Loiane')) // undefined
+        console.log(hash)
+
+        //运用线性探查的方式
+        class UnConfictHashTable extends HashTable{
+        constructor() {
+          super()
+        }
+
+        put(key,value){
+            let position = HashTable.loseloseHashCode(key)
+            if (this.hashTables[position] === undefined) {
+                this.hashTables[position] = { key, value }
+            } else {
+                let index = ++position
+                while (this.hashTables[index] !== undefined) {
+                    index++
+                }
+                this.hashTables[index] = { key, value }
+            }
+        }
+
+        get(key) {
+            let position = HashTable.loseloseHashCode(key)
+            const getElementValue  = index =>{
+                if (this.hashTables[index] === undefined) return undefined
+                if (Object.is(this.hashTables[index].key,key)) {
+                    return this.hashTables[index].value
+                }
+                else{
+                    return getElementValue(index+1)
+                }
+            }
+            return getElementValue(position)
+        }
+
+        remove(key) {
+            let position = HashTable.loseloseHashCode(key)
+            const removeElementValue  = index =>{
+                if (this.hashTables[index] === undefined) return false
+                if (Object.is(this.hashTables[index].key,key)) {
+                    this.hashTables[index] = null
+                    return true
+                }
+                else{
+                    return removeElementValue(index+1)
+                }
+            }
+            return removeElementValue(position)
+        }
+    }
+
+        const hash1 = new UnConfictHashTable()
+        hash1.put('Gandalf',    'gandalf@email.com')
+        hash1.put('John', 'johnsnow®email.com')
+        hash1.put('Tyrion', 'tyrion@email.com')
+        hash1.put('Aaron',    'aaron@email.com')
+        hash1.put('Donnie', 'donnie@email.com')
+        hash1.put('Ana', 'ana©email.com')
+        hash1.put('Jonathan', 'jonathan@email.com')    
+        hash1.put('Jamie', 'jamie@email.com')
+        hash1.put('Sue',    'sueOemail.com')
+        hash1.put('Mindy', 'mindy@email.com')
+        hash1.put('Paul', 'paul©email.com')
+        hash1.put('Nathan', 'nathan@email.com')
+       
+        console.log(hash1)
+
+        // 测试get方法
+        console.log(hash1.get('Tyrion')) 
+        console.log(hash1.get('Aaron')) 
+
+    </script>
+  </body>
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>DoubleLinkedList</title>
+  </head>
+  <body>
+    <script>
+      // 链表节点
+      class Node {
+        constructor(element) {
+          this.element = element;
+          this.next = null;
+          this.prev = null;
+        }
+      }
+
+      class DoubleLinkedList {
+        constructor() {
+          this.head = null;
+          this.tail = null;
+          this.length = 0;
+        }
+
+        // 追加元素
+        append(element) {
+          const node = new Node(element);
+
+          if (this.head) {
+            let current = this.head;
+            while (current.next) {
+              current = current.next;
+            }
+            current.next = node;
+            node.prev = current;
+          } else {
+            this.head = node;
+            this.tail = node;
+          }
+
+          this.length++;
+        }
+
+        // 任意位置插入元素
+        insert(position, element) {
+          if (position >= 0 && position <= this.length) {
+            const node = new Node(element);
+            let current = this.head;
+            let previous = null;
+            let index = 0;
+
+            if (position === 0) {
+              if (!this.head) {
+                this.head = node;
+                this.tail = node;
+              } else {
+                this.head = node;
+                node.next = current;
+                current.prev = node;
+                this.tail = current;
+              }
+            } else if (position === this.length) {
+              current = this.tail;
+              current.next = node;
+              node.prev = current;
+              this.tail = node;
+            } else {
+              while (index < position) {
+                previous = current;
+                current = current.next;
+                index++;
+              }
+              previous.next = node;
+              node.prev = previous;
+              node.next = current;
+              current.prev = node;
+            }
+            this.length++;
+
+            return true;
+          }
+          return false;
+        }
+
+        // 移除指定位置元素
+        removeAt(position) {
+          // 检查越界值
+          if (position > -1 && position < this.length) {
+            let current = this.head;
+            let previous = null;
+            let index = 0;
+            if (position === 0) {
+              this.head = current.next;
+              this.head.prev = null;
+              if (this.length === 1) {
+                this.tail = null;
+              }
+            } else if (position === this.length - 1) {
+              current = this.tail;
+              this.tail = current.prev;
+              this.tail = null;
+            } else {
+              while (index < position) {
+                previous = current;
+                current = current.next;
+                index++;
+              }
+
+              previous.next = current.next;
+              current.next.prev = previous;
+            }
+            this.length--;
+            return current.element;
+          }
+          return null;
+        }
+
+        // 寻找元素下标
+        findIndex(element) {
+          let current = this.head;
+          let index = -1;
+          while (current) {
+            if (element === current.element) {
+              return index + 1;
+            }
+            index++;
+            current = current.next;
+          }
+          return -1;
+        }
+
+        // 删除指定文档
+        remove(element) {
+          const index = this.findIndex(element);
+          return this.removeAt(index);
+        }
+
+        isEmpty() {
+          return !this.length;
+        }
+
+        size() {
+          return this.length;
+        }
+        // 转为字符串
+        toString() {
+          let current = this.head;
+          let string = "";
+          while (current) {
+            string += ` ${current.element}`;
+            current = current.next;
+          }
+          return string;
+        }
+      }
+
+      const linkedList = new DoubleLinkedList();
+
+      console.log(linkedList.toString());
+      linkedList.append(2);
+      linkedList.append(6);
+      linkedList.append(24);
+      linkedList.append(152);
+
+      linkedList.insert(0, 18);
+
+      linkedList.append(200);
+      console.log(linkedList);
+      linkedList.remove(200);
+      console.log(linkedList);
+      console.log(linkedList.findIndex(24));
+    </script>
+  </body>
+</html>
