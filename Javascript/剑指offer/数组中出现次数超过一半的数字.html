@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <h3>
+        数组中有一个数字出现的次数超过数组长度的一半，请找出这个数字。例如输入一个长度为9的数组{1,2,3,2,2,2,5,4,2}。由于数字2在数组中出现了5次，超过数组长度的一半，因此输出2。如果不存在则输出0。
+    </h3>
+    <script>
+        // function MoreThanHalfNum_Solution(numbers) {
+
+        //     let arr = [];
+
+        //     numbers.forEach(number => {
+        //         if (!arr.includes(number)) {
+        //             arr.push(number)
+        //         }
+        //     });
+
+        //     let result = 0;
+
+        //     arr.forEach(number => {
+
+        //         let count = 0;
+
+        //         numbers.forEach(value => {
+        //             if (number === value) {
+        //                 count++;
+        //             }
+        //         })
+
+        //         if (count > numbers.length / 2) {
+        //             result = number;
+        //         }
+        //     });
+
+        //     return result;
+
+        // }
+
+        function MoreThanHalfNum_Solution(numbers) {
+            for (let index = 0; index < numbers.length; index++) {
+                const arr = numbers.join("").split(numbers[index]);  
+                 if (arr.length>numbers.length/2) {
+                     return numbers[index]
+                 }            
+            }
+        }
+
+        const numbers = [1, 2, 3, 2, 2, 2,2, 5, 4, 2]
+        console.log(MoreThanHalfNum_Solution(numbers))
+    </script>
+</body>
+
+</html>

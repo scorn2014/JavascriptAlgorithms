@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <h3>
+        输入n个整数，找出其中最小的K个数。例如输入4,5,1,6,2,7,3,8这8个数字，则最小的4个数字是1,2,3,4,。
+    </h3>
+    <script>
+        function GetLeastNumbers_Solution(input, k) {
+            if (k>input.length) {
+                return []
+            }
+            input.sort();
+            return input.slice(0,k);
+        }
+
+        console.log(GetLeastNumbers_Solution([4,5,1,6,2,7,3,8],4))
+    </script>
+</body>
+
+</html>

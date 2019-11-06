@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <h3>给定一个double类型的浮点数base和int类型的整数exponent。求base的exponent次方。
+
+        保证base和exponent不同时为0</h3>
+    <script>
+        function Power(base, exponent) {
+            if (base === 0) {
+                return 0;
+            }
+
+            let result = 1.0;
+            const e = exponent > 0 ? exponent : -exponent;
+
+            for (let index = 0; index < e; index++) {
+                result = result * base;
+            }
+
+            return exponent>0 ? result : 1/result;
+
+        }
+
+        const result = Power(2,3);
+        console.log(result);
+
+    </script>
+
+</body>
+
+</html>

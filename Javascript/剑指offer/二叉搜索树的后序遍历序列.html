@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <h3>
+        输入一个整数数组，判断该数组是不是某二叉搜索树的后序遍历的结果。如果是则输出Yes,否则输出No。假设输入的数组的任意两个数字都互不相同。 </h3>
+    <script>
+        function VerifySquenceOfBST(sequence) {
+            if (!sequence || sequence.length === 0) {
+                return false;
+            }
+
+            return isSquenceOfBST(sequence, 0, sequence.length - 1);
+        }
+
+        function isSquenceOfBST(sequence, start, end) {
+
+            if (start>= end) {
+                return true;
+            }
+
+            const root = sequence[end]
+
+            //左子树序列
+            let i = start;
+            while (sequence[i] < root) {
+                i++
+            }
+
+            //判断右侧是否为右子树
+            let j = i
+            while (j < end) {
+                if (sequence[j] < root) {
+                    return false;
+                }
+                j++
+            }
+
+
+
+            let left = isSquenceOfBST(sequence.slice(start, i), start, i)
+            let right = isSquenceOfBST(sequence.slice(i + 1, end), i + 1, end)
+
+            return left && right
+        }
+
+        console.log(VerifySquenceOfBST([3, 6, 5, 30, 20, 10]))
+    </script>
+</body>
+
+</html>

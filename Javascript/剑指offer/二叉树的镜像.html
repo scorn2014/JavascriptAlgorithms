@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <h3>
+        操作给定的二叉树，将其变换为源二叉树的镜像。
+    </h3>
+    <script>
+        function TreeNode(x) {
+            this.val = x;
+            this.left = null;
+            this.right = null;
+        }
+
+        function Mirror(root) {
+
+           if (root === null) {
+               return;
+           }
+
+            let node = root.left;
+            root.left = root.right;
+            root.right = node;
+
+            Mirror(root.left)
+            Mirror(root.right)
+        }
+    </script>
+</body>
+
+</html>
