@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <h3>输入一棵二叉搜索树，将该二叉搜索树转换成一个排序的双向链表。
+        要求不能创建任何新的结点，只能调整树中结点指针的指向。
+    </h3>
+    <script>
+        function TreeNode(x) {
+            this.val = x;
+            this.left = null;
+            this.right = null;
+        }
+
+        function Convert(pRootOfTree) {
+            if (pRootOfTree === null) {
+                return null
+            }
+            
+            let array = []
+            ConvertNode(pRootOfTree,array)
+           return ConvertList(array)
+        }
+
+        function ConvertNode(pNode,array) {
+            if (pNode === null) {
+                return 
+            }
+
+            ConvertNode(pNode.left,array)
+            array.push(pNode)
+            ConvertNode(pNode.right,array)
+        }
+
+        function ConvertList(array) {
+           for (let index = 0; index < array.length-1; index++) {
+                array[index].right = array[index+1]
+                array[index+1].left = array[index]
+           }
+
+           return array[0]
+        }
+
+        let node = new TreeNode(10)
+        let left = new TreeNode(8)
+        let right = new TreeNode(20)
+
+        node.left = left
+        node.right = right
+
+        console.log(Convert(node))
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+</head>
+
+<body>
+    <h3>
+        请实现两个函数，分别用来序列化和反序列化二叉树
+
+        二叉树的序列化是指：把一棵二叉树按照某种遍历方式的结果以某种格式保存为字符串，从而使得内存中建立起来的二叉树可以持久保存。序列化可以基于先序、中序、后序、层序的二叉树遍历方式来进行修改，序列化的结果是一个字符串，序列化时通过
+        某种符号表示空节点（#），以 ！ 表示一个结点值的结束（value!）。
+
+        二叉树的反序列化是指：根据某种遍历顺序得到的序列化字符串结果str，重构二叉树。
+    </h3>
+    <script>
+        function TreeNode(x) {
+            this.val = x;
+            this.left = null;
+            this.right = null;
+        }
+
+        function Serialize(pRoot) {
+            var string = ""
+            // write code here
+            if (pRoot === null) {
+                string += '#,'
+                return string
+            }
+
+            string += pRoot.val + ','
+            string += Serialize(pRoot.left)
+            string += Serialize(pRoot.right)
+
+            return string
+        }
+
+        function Deserialize(s) {
+            // write code here
+            if (s === null) {
+                return null
+            }
+            let strList = s.split(',')
+            return DeserializeCore(strList)
+        }
+
+        let index = -1
+
+        function DeserializeCore(strList) {
+            index++
+
+            let node = null
+
+            if (index >= strList.length) {
+                return node
+            }
+
+            if (strList[index] !== "#") {
+                node = new TreeNode(Number(strList[index]))
+                node.left = DeserializeCore(strList)
+                node.right = DeserializeCore(strList)
+                return node
+            }
+
+            return node
+        }
+
+        let node1 = new TreeNode(5)
+        let node2 = new TreeNode(4)
+        let node3 = new TreeNode(3)
+        let node4 = new TreeNode(2)
+
+
+        node1.left = node2
+
+        node2.right = node3
+        node3.right = node4
+
+        let string = Serialize(node1)
+        console.log(string)
+
+        console.log(Deserialize('5,4,#,3,#,2'))
+    </script>
+</body>
+
+</html>

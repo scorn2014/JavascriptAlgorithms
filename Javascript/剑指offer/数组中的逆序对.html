@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <h3>
+      在数组中的两个数字，如果前面一个数字大于后面的数字，则这两个数字组成一个逆序对。输入一个数组,求出这个数组中的逆序对的总数P。并将P对1000000007取模的结果输出。
+      即输出P%1000000007
+    </h3>
+    <script>
+
+      let count = 0;
+
+      function InversePairs(data) {
+          mergeSortCore(data,0,data.length-1)
+          return count;
+      }
+
+      function mergeSortCore(arr, low, high) {
+        if (low >= high) {
+          return;
+        }
+
+        let mid = low + Math.floor((high - low) / 2);
+        mergeSortCore(arr, low, mid);
+        mergeSortCore(arr, mid + 1, high);
+        merge(arr,low,mid,high)
+      }
+
+      function merge(arr, low, mid, high) {
+        let tempArr = [];
+        let p1 = low,
+          p2 = mid + 1;
+        while (p1 <= mid && p2 <= high) {
+          if (arr[p1] < arr[p2]) {
+            tempArr.push(arr[p1]);
+            p1++;
+          } else {
+            count = (count + mid - p1 +1)%1000000007;
+            tempArr.push(arr[p2]);
+            p2++;
+          }
+        }
+
+        while (p1 <= mid) {
+          tempArr.push(arr[p1]);
+          p1++;
+        }
+
+        while (p2 <= mid) {
+          tempArr.push(arr[p2]);
+          p2++;
+        }
+
+        for (i = 0; i < tempArr.length; i++) {
+            arr[low + i] = tempArr[i];
+        }
+
+        return count;
+      }
+
+      console.log(InversePairs([1,2,3,4,5,6,7,0]))
+
+    //   let arr = [2,1,6,10,20,5,7,9];
+    //   mergeSortCore(arr, 0, arr.length - 1);
+    //   console.log(arr)
+
+      // //阶乘
+      // function factorial(n) {
+      //     console.log(n)
+      //     if (n === 1) {
+      //         return 1;
+      //     }
+
+      //     return n*factorial(n-1)
+      // }
+
+      // console.log(factorial(5))
+
+      // //斐波那契数列
+      // function fibonacci(n) {
+      //     if (n<2) {
+      //         return n
+      //     }
+
+      //     let value = fibonacci(n-1) + fibonacci(n-2)
+      //     return value
+      // }
+
+      // console.log(fibonacci(5))
+    </script>
+  </body>
+</html>

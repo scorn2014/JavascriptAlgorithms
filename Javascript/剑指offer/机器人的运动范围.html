@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+</head>
+
+<body>
+    <h3>
+        地上有一个m行和n列的方格。一个机器人从坐标0,0的格子开始移动，每一次只能向左，右，上，下四个方向移动一格，但是不能进入行坐标和列坐标的数位之和大于k的格子。
+        例如，当k为18时，机器人能够进入方格（35,37），因为3+5+3+7 = 18。
+        但是，它不能进入方格（35,38），因为3+5+3+8 = 19。请问该机器人能够达到多少个格子？
+    </h3>
+    <script>
+        let flags = []
+
+        function movingCount(threshold, rows, cols) {
+            // write code here
+
+            for (var i = 0; i < rows; i++) {
+                flags[i] = [];
+                for (var j = 0; j < cols; j++) {
+                    flags[i][j] = false;
+                }
+            }
+
+            return movingCountCore(threshold,0,0,rows,cols)
+
+        }
+
+        function movingCountCore(threshold, i, j, rows, cols) {
+
+            if (i >= rows || j >= cols || i < 0 || j < 0 || numSum(i) + numSum(j) > threshold || flags[i][j]) {
+                return 0
+            }
+
+            flags[i][j] = true
+
+            return movingCountCore(threshold, i + 1, j, rows, cols) +
+                movingCountCore(threshold, i - 1, j, rows, cols) +
+                movingCountCore(threshold, i, j + 1, rows, cols) +
+                movingCountCore(threshold, i, j - 1, rows, cols) + 1
+
+        }
+
+        function numSum(i) {
+            let sum = 0
+            while (i > 0) {
+                sum += i % 10
+                i = parseInt(i / 10)
+            }
+            return sum
+        }
+
+        console.log(movingCount(25,10,30))
+    </script>
+</body>
+
+</html>

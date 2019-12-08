@@ -10,13 +10,41 @@
 
 <body>
     <h3>
-        输入一个字符串,按字典序打印出该字符串中字符的所有排列。例如输入字符串abc,则打印出由字符a,b,c所能排列出来的所有字符串abc,acb,bac,bca,cab和cba。
+        输入一个字符串,按字典序打印出该字符串中字符的所有排列。
+        例如输入字符串abc,则打印出由字符a,b,c所能排列出来的所有字符串abc,acb,bac,bca,cab和cba。
     </h3>
     <script>
         function Permutation(str) {
-            
+            let res = [],
+                pStr = "";
+            if (str.length <= 0) return res;
+            arr = str.split(""); //将字符串转化为字符数组
+            permutate(arr, pStr, res);
+            return res;
         }
-        
+
+        function permutate(arr, pstr, res) {
+            if (arr.length === 0) {
+                return res.push(pstr)
+            }
+
+            let repeatedStr = new Set()
+
+            for (let i = 0; i < arr.length; i++) {
+                if (!repeatedStr.has(arr[i])) {
+                    const char = arr.splice(i, 1)[0]
+                    pstr += char
+                    permutate(arr, pstr, res)
+                    arr.splice(i, 0, char)
+                    pstr = pstr.slice(0, pstr.length - 1)
+                    repeatedStr.add(char)
+                }
+
+            }
+
+        }
+
+        console.log(Permutation("abc"))
     </script>
 </body>
 

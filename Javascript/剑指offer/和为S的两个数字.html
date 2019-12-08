@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+</head>
+
+<body>
+    <h3>
+        输入一个递增排序的数组和一个数字S，在数组中查找两个数，使得他们的和正好是S，如果有多对数字的和等于S，输出两个数的乘积最小的。
+    </h3>
+    <script>
+        function FindNumbersWithSum(array, sum) {
+            let result = []
+            // write code here
+            for (let i = 0; i < array.length - 1; i++) {
+                let j = i + 1;
+
+                while (j < array.length) {
+                    let temp = array[i] + array[j];
+                    if (temp === sum) {
+                        result.push([array[i], array[j]])
+                        break
+                    }
+                    j++
+                }
+            }
+
+            let index = 0
+
+            if (result.length > 0) {
+                let arr = result[0]
+                let min = arr[0] * arr[1]
+                index = 0
+
+                for (let i = 1; i < result.length; i++) {
+                    let arr = result[i]
+                    if (arr[0] * arr[1] < min) {
+                        min = arr[0] * arr[1]
+                        index = i
+                    }
+                }
+
+                return result[index]
+
+            }
+
+            return []
+
+            // let tempArr = []
+            // array.forEach((value,i) => {
+            //     if (i<array.length-1 && array[i]+array[i+1]===sum) {
+            //         tempArr.push([array[i],array[i+1]])
+            //     }
+            // });
+
+            // let index = 0
+
+            // if (tempArr.length>0) {
+            //     let arr = tempArr[0]
+            //     let min = arr[0]*arr[1]
+            //     index = 0
+
+            //     for (let i = 1; i < tempArr.length; i++) {
+            //         let arr = tempArr[i]
+            //         if (arr[0]*arr[1]<min) {
+            //             min = arr[0]*arr[1]
+            //             index = i
+            //         }
+            //     }
+
+            //     return tempArr[index]
+
+            // }
+
+            // return []
+        }
+
+        let arr = [1, 2, 4, 7, 11, 15]
+        console.log(FindNumbersWithSum(arr, 15))
+    </script>
+</body>
+
+</html>

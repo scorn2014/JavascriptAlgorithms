@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <h3>
+        输入一棵二叉树，求该树的深度。
+        从根结点到叶结点依次经过的结点（含根、叶结点）形成树的一条路径，最长路径的长度为树的深度。
+    </h3>
+    <script>
+        function TreeNode(x) {
+            this.val = x;
+            this.left = null;
+            this.right = null;
+        }
+
+        function TreeDepth(pRoot) {
+            if (pRoot === null) {
+                return 0
+            }
+
+            let left = TreeDepth(pRoot.left)
+            let right = TreeDepth(pRoot.right)
+            return Math.max(left,right)+1
+        }
+
+    </script>
+</body>
+
+</html>

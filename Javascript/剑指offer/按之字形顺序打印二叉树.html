@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <h3>
+        请实现一个函数按照之字形打印二叉树，
+        即第一行按照从左到右的顺序打印，第二层按照从右至左的顺序打印，第三行按照从左到右的顺序打印，其他行以此类推。
+
+    </h3>
+    <script>
+        function TreeNode(x) {
+            this.val = x;
+            this.left = null;
+            this.right = null;
+        }
+
+        function Print(pRoot) {
+            // write code here
+            if (!pRoot) {
+                return []
+            }
+
+            let queue = [],
+                temp = [],
+                result = [],
+                isEven = true
+            let rowCount = 0;
+            toBePrinted = 1
+            queue.push(pRoot)
+
+            while (queue.length) {
+                let node = queue.shift()
+
+                if (isEven) {
+                    temp.push(node.val)
+                } else {
+                    temp.unshift(node.val)
+                }
+
+                toBePrinted--
+
+                if (node.left) {
+                    queue.push(node.left)
+                    rowCount++
+                }
+
+                if (node.right) {
+                    queue.push(node.right)
+                    rowCount++
+                }
+
+                if (toBePrinted === 0) {
+                    isEven = !isEven
+                    toBePrinted = rowCount
+                    rowCount = 0
+                    result.push(temp)
+                    temp = []
+                }
+            }
+
+            return result
+
+        }
+
+        let node1 = new TreeNode(10)
+        let node2 = new TreeNode(12)
+        let node3 = new TreeNode(12)
+        let node4 = new TreeNode(13)
+        let node5 = new TreeNode(13)
+
+
+        node1.left = node2
+        node1.right = node3
+
+        node2.left = node4
+        node3.right = node5
+
+        console.log(Print(node1))
+    </script>
+</body>
+
+</html>

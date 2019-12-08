@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <h3>
+        从上到下按层打印二叉树，同一层结点从左至右输出。每一层输出一行。
+
+
+    </h3>
+    <script>
+        function TreeNode(x) {
+            this.val = x;
+            this.left = null;
+            this.right = null;
+        }
+
+        function Print(pRoot) {
+            // write code here
+            if (!pRoot) {
+                return []
+            }
+
+            let queue = [],
+                temp = [],
+                result = [];
+            let rowCount = 0;
+            toBePrinted = 1
+            queue.push(pRoot)
+
+            while (queue.length) {
+                let node = queue.shift()
+                temp.push(node.val)
+
+                toBePrinted--
+
+                if (node.left) {
+                    queue.push(node.left)
+                    rowCount++
+                }
+
+                if (node.right) {
+                    queue.push(node.right)
+                    rowCount++
+                }
+
+                if (toBePrinted === 0) {
+                    toBePrinted = rowCount
+                    rowCount = 0
+                    result.push(temp)
+                    temp = []
+                }
+            }
+
+            return result
+        }
+    </script>
+</body>
+
+</html>

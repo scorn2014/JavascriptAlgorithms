@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <h3>
+        给定一个二叉树和其中的一个结点，请找出中序遍历顺序的下一个结点并且返回。
+        注意，树中的结点不仅包含左右子结点，同时包含指向父结点的指针。
+    </h3>
+    <script>
+        function TreeLinkNode(x) {
+            this.val = x;
+            this.left = null;
+            this.right = null;
+            this.next = null;
+        }
+
+        function GetNext(pNode) {
+            // write code here
+            let qNode = pNode
+            while (qNode.next !== null) {
+                qNode = qNode.next
+            }
+
+            let array = []
+            midOrder(qNode,array)
+            
+            for (let i = 0; i < array.length; i++) {
+                if (pNode === array[i]) {
+                    return i===array.length-1?null:array[i+1]
+                }
+            }
+
+            return null
+
+        }
+
+        function midOrder(pNode,array) {
+            if (pNode === null) {
+                return 
+            }
+            midOrder(pNode.left,array)
+            array.push(pNode)
+            midOrder(pNode.right,array)
+        }
+
+        let node = new TreeLinkNode(10)
+        let node1 = new TreeLinkNode(5)
+        let node2 = new TreeLinkNode(4)
+        node.left = node1
+        node.right = node2
+        node1.next = node
+        node2.next = node
+
+        console.log(GetNext(node))
+
+    </script>
+</body>
+
+</html>

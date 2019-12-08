@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <h3>
+        给定一个数组A[0,1,...,n-1],请构建一个数组B[0,1,...,n-1],其中B中的元素B[i]=A[0]*A[1]*...*A[i-1]*A[i+1]*...*A[n-1]。
+        不能使用除法。
+    </h3>
+    <script>
+        function multiply(array) {
+            // write code here
+            let res = []
+            if (array.length>0) {
+                res[0] = 1
+                for (let i = 1; i < array.length; i++) {
+                    res[i] = res[i-1] * array[i-1]
+                }
+
+                let temp = 1
+                for (let j = array.length-2; j >=0; j--) {
+                   temp = temp * array[j+1]
+                    res[j] = res[j]*temp
+                }
+            }
+            return res
+        }
+    </script>
+</body>
+
+</html>

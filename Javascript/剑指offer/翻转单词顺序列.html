@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+        <h3>
+            牛客最近来了一个新员工Fish，每天早晨总是会拿着一本英文杂志，写些句子在本子上。同事Cat对Fish写的内容颇感兴趣，有一天他向Fish借来翻看，但却读不懂它的意思。例如，“student. a am I”。后来才意识到，这家伙原来把句子单词的顺序翻转了，正确的句子应该是“I am a student.”。Cat对一一的翻转这些单词顺序可不在行，你能帮助他么？
+        </h3>
+
+    <script>
+        function ReverseSentence(str) {
+            
+            let array = str.split(" ")
+            if (array.length > 0) {
+                for (let index = 0; index < Math.floor(array.length/2); index++) {
+                    let length = array.length
+                    let temp = array[index]
+                    array[index] = array[length-index-1]
+                    array[length-index-1] = temp
+                }
+            }
+
+            return array.join(" ");
+
+        }
+
+        console.log(ReverseSentence("student. a am I"))
+    </script>
+</body>
+
+</html>

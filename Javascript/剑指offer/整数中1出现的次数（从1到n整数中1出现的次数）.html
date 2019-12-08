@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <h3>
+        求出1~13的整数中1出现的次数,并算出100~1300的整数中1出现的次数？为此他特别数了一下1~13中包含1的数字有1、10、11、12、13因此共出现6次,但是对于后面问题他就没辙了。ACMer希望你们帮帮他,并把问题更加普遍化,可以很快的求出任意非负整数区间中1出现的次数（从1
+        到 n 中1出现的次数）。
+    </h3>
+    <script>
+        function NumberOf1Between1AndN_Solution(n) {
+
+            let totalCount = 0;
+            for (let index = 1; index <= n; index++) {
+                let str = index + '';
+
+                let count = 0;
+                for (let j = 0; j < str.length; j++) {
+                    const char = str.charAt(j)
+                    if (char === '1') {
+                        count++;
+                    }
+                }
+                totalCount += count;
+            }
+
+            return totalCount;
+        }
+
+        console.log(NumberOf1Between1AndN_Solution(13))
+        
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+</head>
+
+<body>
+    <h3>
+        求1+2+3+...+n，要求不能使用乘除法、for、while、if、else、switch、case等关键字及条件判断语句（A?B:C）。
+    </h3>
+    <script>
+        function Sum_Solution(n) {
+            // write code here
+           
+            let sum = n
+            n>0 && (sum += Sum_Solution(n-1))
+            return sum
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <h3>
+        请实现一个函数用来匹配包括'.'和'*'的正则表达式。模式中的字符'.'表示任意一个字符，而'*'表示它前面的字符可以出现任意次（包含0次）。
+        在本题中，匹配是指字符串的所有字符匹配整个模式。例如，字符串"aaa"与模式"a.a"和"ab*ac*a"匹配，但是与"aa.a"和"ab*a"均不匹配
+    </h3>
+    <script>
+        //原生js解法
+        //s, pattern都是字符串
+        // function match(s, pattern) {
+        //     const reg = new RegExp(`^${pattern}$`)
+        //     return reg.test(s)
+        // }
+
+        function match(s, pattern) {
+            if (s === null || pattern === null) {
+                return false
+            }
+
+            return matchCore(s, 0, pattern, 0)
+        }
+
+        function matchCore(str, sIndex, pattern, pIndex) {
+            if (sIndex === str.length && pIndex === pattern.length) {
+                return true
+            }
+
+            if (sIndex !== str.length && pIndex === pattern.length) {
+                return false
+            }
+
+            if (pattern[pIndex + 1] === "*") {
+                if (pattern[pIndex] === "." && sIndex !== str.length || pattern[pIndex] === str[sIndex]  ) {
+                    return matchCore(str, sIndex + 1, pattern, pIndex + 2) ||
+                        matchCore(str, sIndex, pattern, pIndex + 2) ||
+                        matchCore(str, sIndex + 1, pattern, pIndex)
+                }
+
+                return matchCore(str,sIndex,pattern,pIndex+2)
+
+            }
+
+            if (str[sIndex] === pattern[pIndex] || pattern[pIndex] === "." && sIndex !== str.length) {
+                return matchCore(str,sIndex+1,pattern,pIndex+1)
+            }
+
+            return false
+        }
+
+        console.log(match("", ""))
+
+        //参考地址：https://www.cnblogs.com/wuguanglin/p/match.html
+    </script>
+</body>
+
+</html>

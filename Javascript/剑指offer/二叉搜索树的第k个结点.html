@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+</head>
+
+<body>
+    <h3>
+        给定一棵二叉搜索树，请找出其中的第k小的结点。
+        例如， （5，3，7，2，4，6，8） 中，按结点数值大小顺序第三小结点的值为4。
+
+    </h3>
+    <script>
+        function TreeNode(x) {
+            this.val = x;
+            this.left = null;
+            this.right = null;
+        }
+
+        function KthNode(pRoot, k) {
+
+            let array = []
+
+            addNode(pRoot,array)
+
+            if (array.length >= k && k >=1) {
+                return array[k-1]
+            }
+
+            return null
+        }
+
+        function addNode(node,array) {
+            if (node !== null) {
+                addNode(node.left,array)
+                array.push(node)
+                addNode(node.right,array)
+            }
+        }
+
+        let root = new TreeNode(10)
+        let node1 = new TreeNode(9)
+        let node2 = new TreeNode(12)
+        let node3 = new TreeNode(5)
+
+        root.left = node1
+        root.right = node2
+        node1.left = node3
+
+        console.log(KthNode(root,1))
+    </script>
+</body>
+
+</html>
